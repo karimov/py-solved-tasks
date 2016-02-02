@@ -20,21 +20,44 @@ def binary_search(alist, item):
             else:
                 last = midpoint-1
 
-    return found
+    if found:
+        return True
+    else:
+        return False
 
 # Recursive binary search
 
 def rec_binary_search(alist, item):
+    return _binary_search(alist, 0, len(alist)-1, item)
+
+def _binary_search(alist, first, last, item):
+    mid = (first+last)//2
+    if first > last:
+        return False
+    else:
+        if alist[mid] == item:
+            return True
+        else:
+            if alist[mid] > item:
+                return _binary_search(alist, first, mid-1, item)
+            else:
+                return _binary_search(alist, mid+1, last, item)
+
+
+'''
+recursive binary search
+with slice operator
+'''
+
+def rec_binary_search_v1(alist, item):
     if len(alist) == 0:
         return False
     else:
-        first = 0
-        last = len(alist)-1
-        midpoint = (first+last)//2
-        if alist[midpoint] == item:
+        mid = len(alist)//2
+        if alist[mid] == item:
             return True
         else:
-            if alist[midpoint] < item:
-                return binary_search(alist[midpoint+1:], item)
-            if alist[midpoint] > item:
-                return binary_search(alist[:midpoint], item)
+            if alist[mid] > item:
+                return rec_binary_search_v1(alist[:mid], item)
+            else:
+                return rec_binary_search_v1(alist[mid+1:], item)

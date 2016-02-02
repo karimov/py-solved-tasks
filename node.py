@@ -208,6 +208,39 @@ class UnorderedList:
     def pop_v2(self):
         pass
 
+    def update(self, index, item):
+        head = self.head
+        pos = 0
+        found = False
+        while head.getNext() != None and pos < index and not found:
+            pos += 1
+            head = head.getNext()
+
+        if head and pos == index:
+            head.setData(item)
+        else:
+            print('List out of range')
+
+    def getitem(self, index):
+        head = self.head
+        pos = 0
+        while pos < self.size() and head.getNext() != None:
+            if pos != index:
+                pos += 1
+                head = head.getNext()
+            else:
+                break
+
+        if head and pos == index:
+            return head.getData()
+        else:
+            print("List out of range")
+
+    def __getitem__(self, index):
+        return self.getitem(index)
+
+    def __setitem__(self, index, item):
+        return self.update(index, item)
 
 class OrderedList:
     def __init__(self):
